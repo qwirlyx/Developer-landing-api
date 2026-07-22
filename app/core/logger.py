@@ -2,7 +2,11 @@ import logging
 import os
 from logging.handlers import RotatingFileHandler
 
-LOG_DIR = os.path.join("app", "storage")
+LOG_DIR = os.getenv(
+    "STORAGE_DIR",
+    os.path.join("app", "storage"),
+)
+
 LOG_FILE = os.path.join(LOG_DIR, "requests.log")
 
 
