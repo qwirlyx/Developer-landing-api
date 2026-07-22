@@ -12,7 +12,12 @@ from app.core.logger import logger
 class EmailService:
     def __init__(self) -> None:
         self.settings = get_settings()
-        self.outbox_file = os.path.join("app", "storage", "email_outbox.json")
+        storage_dir = os.getenv(
+            "STORAGE_DIR",
+            os.path.join("app", "storage"),
+        )
+        
+        self.outbox_file = os.path.join(storage_dir, "email_outbox.json")
 
     async def send_contact_emails(
         self,
