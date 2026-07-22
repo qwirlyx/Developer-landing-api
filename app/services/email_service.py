@@ -28,7 +28,7 @@ class EmailService:
         owner_text = self._build_owner_text(name, phone, email, comment, ai_result)
         owner_html = self._build_owner_html(name, phone, email, comment, ai_result)
     
-        user_subject = "Копия заявки с AI-анализом"
+        user_subject = "FULL AI COPY TEST 2026"
         user_text = self._build_owner_text(name, phone, email, comment, ai_result)
         user_html = self._build_owner_html(name, phone, email, comment, ai_result)
     
@@ -197,18 +197,6 @@ class EmailService:
         </body>
         </html>
         """
-
-    def _build_user_text(self, name: str) -> str:
-        return (
-            f"Здравствуйте, {name}!\n\n"
-            "Ваша заявка успешно получена.\n"
-            "Это автоматическое письмо от тестового backend API.\n\n"
-            "С уважением,\n"
-            "Developer Landing API"
-        )
-
-    def _build_user_html(self, name: str) -> str:
-        safe_name = html.escape(name)
 
         return f"""
         <!doctype html>
