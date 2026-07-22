@@ -28,9 +28,9 @@ class EmailService:
         owner_text = self._build_owner_text(name, phone, email, comment, ai_result)
         owner_html = self._build_owner_html(name, phone, email, comment, ai_result)
 
-        user_subject = "Ваша заявка получена"
-        user_text = self._build_user_text(name)
-        user_html = self._build_user_html(name)
+        user_subject = "Копия заявки с AI-анализом"
+        user_text = self._build_owner_text(name, phone, email, comment, ai_result)
+        user_html = self._build_owner_html(name, phone, email, comment, ai_result)
 
         owner_status = await self._send_email(
             to_email=self.settings.owner_email,
