@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Landing API</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero__content">
+        <p class="eyebrow">FastAPI / AI / SMTP / OpenRouter</p>
+        <h1>Backend API для лендинга разработчика</h1>
+        <p class="lead">
+          Тестовый backend-сервис с обработкой формы обратной связи, AI-анализом комментария,
+          email-уведомлениями, rate limiting, логами и метриками.
+        </p>
+        <div class="hero__actions">
+          <a class="button button-primary" href="/docs" target="_blank">Открыть Swagger</a>
+          <a class="button button-secondary" href="/api/health" target="_blank">Проверить API</a>
+        </div>
+      </div>
+
+      <div class="status-card">
+        <span class="status-dot"></span>
+        <p>Статус API</p>
+        <strong id="healthStatus">проверка...</strong>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Что реализовано</h2>
+        <ul>
+          <li>Endpoint для формы обратной связи</li>
+          <li>Валидация данных через Pydantic</li>
+          <li>AI-анализ комментария с fallback</li>
+          <li>Email-уведомления через SMTP</li>
+          <li>Rate limiting по IP</li>
+          <li>JSON-метрики и логи запросов</li>
+        </ul>
+      </article>
+
+      <article class="card form-card">
+        <h2>Отправить тестовую заявку</h2>
+        <form id="contactForm">
+          <label>
+            Имя
+            <input name="name" type="text" placeholder="Иван Шевченко" required minlength="2" />
+          </label>
+
+          <label>
+            Телефон
+            <input name="phone" type="text" placeholder="+79780260009" required minlength="5" />
+          </label>
+
+          <label>
+            Email
+            <input name="email" type="email" placeholder="test@example.com" required />
+          </label>
+
+          <label>
+            Комментарий
+            <textarea name="comment" placeholder="Здравствуйте! Хочу обсудить разработку backend API для лендинга с AI-интеграцией." required minlength="5"></textarea>
+          </label>
+
+          <button class="button button-primary" type="submit">Отправить заявку</button>
+        </form>
+      </article>
+    </section>
+
+    <section class="response-section">
+      <div class="section-heading">
+        <h2>Ответ API</h2>
+        <p>Здесь появится ответ от <code>POST /api/contact</code>.</p>
+      </div>
+      <pre id="responseBox">Запрос ещё не отправлялся.</pre>
+    </section>
+  </main>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+{
+  "info": {
+    "name": "Developer Landing API",
+    "description": "Postman collection for testing Developer Landing API: contact form, AI integration, email sending, metrics and health check.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/health",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "health"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get metrics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/metrics",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "metrics"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create contact request",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Ivan Shevchenko\",\n  \"phone\": \"+79780260009\",\n  \"email\": \"test@example.com\",\n  \"comment\": \"Hello! I would like to discuss backend API development with AI integration.\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/contact",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "contact"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create contact request - validation error",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"A\",\n  \"phone\": \"abc\",\n  \"email\": \"wrong-email\",\n  \"comment\": \"hi\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/contact",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "contact"
+          ]
+        }
+      }
+    }
+  ]
+}

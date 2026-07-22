@@ -1,0 +1,7 @@
+{
+  "total_requests": 3,
+  "successful_requests": 3,
+  "failed_requests": 1,
+  "ai_success": 3,
+  "ai_fallback": 0
+}

@@ -1,0 +1,23 @@
+2026-07-22 16:25:52,944 | INFO | GET / | status=200 | ip=127.0.0.1 | time=0.035s
+2026-07-22 16:25:52,960 | INFO | GET /static/styles.css | status=200 | ip=127.0.0.1 | time=0.003s
+2026-07-22 16:25:52,961 | INFO | GET /static/script.js | status=200 | ip=127.0.0.1 | time=0.004s
+2026-07-22 16:25:53,072 | INFO | GET /api/health | status=200 | ip=127.0.0.1 | time=0.0s
+2026-07-22 16:25:53,078 | WARNING | GET /favicon.ico | http_error=Not Found | status=404
+2026-07-22 16:25:53,079 | INFO | GET /favicon.ico | status=404 | ip=127.0.0.1 | time=0.002s
+2026-07-22 16:28:58,975 | INFO | Email sent successfully to shevchenko.i.i.2.22@gmail.com
+2026-07-22 16:29:00,889 | INFO | Email sent successfully to shevchenko.i.i.2.22@gmail.com
+2026-07-22 16:29:00,891 | INFO | POST /api/contact | status=200 | ip=127.0.0.1 | time=13.2922s
+2026-07-22 16:30:44,581 | INFO | GET / | status=200 | ip=127.0.0.1 | time=0.038s
+2026-07-22 16:30:44,591 | INFO | GET /static/styles.css | status=304 | ip=127.0.0.1 | time=0.003s
+2026-07-22 16:30:44,592 | INFO | GET /static/script.js | status=200 | ip=127.0.0.1 | time=0.004s
+2026-07-22 16:30:44,666 | INFO | GET /api/health | status=200 | ip=127.0.0.1 | time=0.0s
+2026-07-22 16:31:31,259 | INFO | Email sent successfully to shevchenko.i.i.2.22@gmail.com
+2026-07-22 16:31:34,027 | INFO | Email sent successfully to shevchenko.i.i.2.22@gmail.com
+2026-07-22 16:31:34,029 | INFO | POST /api/contact | status=200 | ip=127.0.0.1 | time=18.7978s
+2026-07-22 16:34:36,550 | INFO | GET / | status=200 | ip=127.0.0.1 | time=0.001s
+2026-07-22 16:34:36,560 | INFO | GET /static/styles.css | status=304 | ip=127.0.0.1 | time=0.002s
+2026-07-22 16:34:36,561 | INFO | GET /static/script.js | status=304 | ip=127.0.0.1 | time=0.003s
+2026-07-22 16:34:36,588 | INFO | GET /api/health | status=200 | ip=127.0.0.1 | time=0.0s
+2026-07-22 16:36:37,818 | INFO | Email sent successfully to shevchenko.i.i.2.22@gmail.com
+2026-07-22 16:36:40,491 | INFO | Email sent successfully to shevchenko.i.i.2.22@gmail.com
+2026-07-22 16:36:40,494 | INFO | POST /api/contact | status=200 | ip=127.0.0.1 | time=37.9759s
