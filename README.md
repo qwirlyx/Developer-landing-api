@@ -103,8 +103,6 @@ RATE_LIMIT_MAX_REQUESTS=5
 RATE_LIMIT_WINDOW_SECONDS=3600
 ```
 
-Файл `.env` не должен попадать в репозиторий.
-
 ### 4. Запустить сервер
 
 ```bash
