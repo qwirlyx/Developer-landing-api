@@ -9,95 +9,93 @@
 <body>
   <main class="page">
     <section class="hero">
-      <div class="hero__content panel">
-        <p class="eyebrow">FastAPI • OpenRouter • SMTP • JSON storage</p>
+      <div class="hero__text">
+        <p class="eyebrow">FastAPI · OpenRouter · SMTP · JSON storage</p>
         <h1>Backend API для лендинга разработчика</h1>
         <p class="lead">
-          Тестовый backend-сервис с полным циклом обработки заявки: валидация,
-          rate limiting, AI-анализ комментария, email-уведомления, логи, метрики и Swagger-документация.
+          Тестовый backend-сервис: форма обратной связи, валидация, AI-анализ комментария,
+          email-уведомления, rate limiting, логи и метрики.
         </p>
+
         <div class="hero__actions">
-          <a class="button button-primary" href="/docs" target="_blank">Открыть Swagger</a>
-          <a class="button button-secondary" href="/api/health" target="_blank">Health check</a>
-          <a class="button button-secondary" href="/api/metrics" target="_blank">Метрики</a>
+          <a class="button button--primary" href="/docs" target="_blank">Swagger</a>
+          <a class="button button--secondary" href="/api/health" target="_blank">Health check</a>
+          <a class="button button--secondary" href="/api/metrics" target="_blank">Метрики</a>
         </div>
       </div>
 
-      <aside class="status-card panel">
-        <div>
-          <span class="status-dot" id="statusDot"></span>
-          <p>Статус API</p>
-          <strong id="healthStatus">проверка...</strong>
-        </div>
-        <div class="mini-metrics">
-          <div>
-            <span id="totalRequests">—</span>
-            <small>заявок</small>
-          </div>
-          <div>
-            <span id="aiSuccess">—</span>
-            <small>AI success</small>
-          </div>
-        </div>
+      <aside class="status-card">
+        <span class="status-dot"></span>
+        <p>Статус API</p>
+        <strong id="healthStatus">проверка...</strong>
       </aside>
     </section>
 
-    <section class="process panel">
-      <div class="process__item">
+    <section class="process">
+      <article>
         <span>01</span>
-        <strong>Запрос</strong>
+        <h2>Запрос</h2>
         <p>Форма отправляет данные на <code>POST /api/contact</code>.</p>
-      </div>
-      <div class="process__item">
+      </article>
+
+      <article>
         <span>02</span>
-        <strong>Валидация</strong>
+        <h2>Валидация</h2>
         <p>Pydantic проверяет имя, телефон, email и комментарий.</p>
-      </div>
-      <div class="process__item">
+      </article>
+
+      <article>
         <span>03</span>
-        <strong>AI-анализ</strong>
-        <p>OpenRouter классифицирует обращение и генерирует вариант ответа.</p>
-      </div>
-      <div class="process__item">
+        <h2>AI-анализ</h2>
+        <p>OpenRouter классифицирует обращение и предлагает вариант ответа.</p>
+      </article>
+
+      <article>
         <span>04</span>
-        <strong>Email</strong>
+        <h2>Email</h2>
         <p>SMTP отправляет письмо владельцу и копию пользователю.</p>
-      </div>
+      </article>
     </section>
 
     <section class="content-grid">
-      <article class="features panel">
+      <article class="panel">
         <h2>Что реализовано</h2>
+
         <div class="feature-list">
-          <div class="feature">
-            <b>REST API</b>
+          <div>
+            <h3>REST API</h3>
             <p>Контактная форма, health check и metrics endpoint.</p>
           </div>
-          <div class="feature">
-            <b>AI fallback</b>
+
+          <div>
+            <h3>AI fallback</h3>
             <p>Если AI недоступен, сервис продолжает обработку заявки.</p>
           </div>
-          <div class="feature">
-            <b>Защита от спама</b>
+
+          <div>
+            <h3>Защита от спама</h3>
             <p>Rate limiting по IP через файловое хранение.</p>
           </div>
-          <div class="feature">
-            <b>Логи и статистика</b>
+
+          <div>
+            <h3>Логи и статистика</h3>
             <p>Запросы, ошибки и метрики сохраняются локально.</p>
           </div>
         </div>
       </article>
 
-      <article class="form-card panel">
-        <div class="section-heading section-heading--compact">
+      <article class="panel">
+        <div class="panel__header">
           <div>
             <h2>Тестовая заявка</h2>
             <p>Отправьте форму и проверьте полный backend-flow.</p>
           </div>
-          <button class="ghost-button" type="button" id="fillExample">Заполнить пример</button>
+          <button class="button button--small" type="button" id="fillExample">
+            Заполнить пример
+          </button>
         </div>
 
-        <form id="contactForm">
+        <form id="contactForm" class="form">
           <label>
             Имя
             <input name="name" type="text" placeholder="Иван Шевченко" required minlength="2" />
@@ -115,22 +113,25 @@
 
           <label>
             Комментарий
-            <textarea name="comment" placeholder="Здравствуйте! Хочу обсудить разработку backend API для лендинга с AI-анализом заявки и email-уведомлениями." required minlength="5"></textarea>
+            <textarea name="comment" required minlength="5" placeholder="Здравствуйте! Хочу обсудить разработку backend API для лендинга с AI-анализом заявки и email-уведомлениями."></textarea>
           </label>
 
-          <button class="button button-primary form-submit" type="submit" id="submitButton">Отправить заявку</button>
+          <button class="button button--primary button--full" type="submit">
+            Отправить заявку
+          </button>
         </form>
       </article>
     </section>
 
-    <section class="response-section panel">
-      <div class="section-heading">
+    <section class="response-panel">
+      <div class="response-panel__header">
         <div>
           <h2>Ответ API</h2>
           <p>Здесь появится результат от <code>POST /api/contact</code>.</p>
         </div>
-        <span class="response-badge" id="responseBadge">ожидание</span>
+        <span id="responseStatus" class="response-status">ожидание</span>
       </div>
+
       <pre id="responseBox">Запрос ещё не отправлялся.</pre>
     </section>
   </main>
