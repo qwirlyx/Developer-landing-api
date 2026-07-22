@@ -68,6 +68,7 @@ class EmailService:
         html_body: Optional[str] = None,
     ) -> bool:
         self._save_to_outbox(to_email, subject, text_body, html_body)
+        logger.info("DEBUG_EMAIL_SUBJECT to=%s subject=%s", to_email, subject)
 
         if not self._is_configured():
             logger.warning("Brevo API is not configured. Email was saved to outbox only.")
