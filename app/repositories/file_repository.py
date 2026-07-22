@@ -5,9 +5,14 @@ from typing import Any
 
 class FileRepository:
     def __init__(self) -> None:
-        self.storage_dir = os.path.join("app", "storage")
+        self.storage_dir = os.getenv(
+            "STORAGE_DIR",
+            os.path.join("app", "storage"),
+        )
+
         self.metrics_file = os.path.join(self.storage_dir, "metrics.json")
         self.rate_limit_file = os.path.join(self.storage_dir, "rate_limit.json")
+
         os.makedirs(self.storage_dir, exist_ok=True)
 
     def read_json(self, path: str, default: Any) -> Any:
@@ -21,6 +26,8 @@ class FileRepository:
             return default
 
     def write_json(self, path: str, data: Any) -> None:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+
         with open(path, "w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=2)
 
@@ -32,6 +39,7 @@ class FileRepository:
             "ai_success": 0,
             "ai_fallback": 0,
         }
+
         return self.read_json(self.metrics_file, default_metrics)
 
     def save_metrics(self, metrics: dict) -> None:
