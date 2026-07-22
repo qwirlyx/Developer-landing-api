@@ -28,7 +28,7 @@ class EmailService:
         owner_text = self._build_owner_text(name, phone, email, comment, ai_result)
         owner_html = self._build_owner_html(name, phone, email, comment, ai_result)
     
-        user_subject = "FULL AI COPY TEST 2026"
+        user_subject = "Копия заявки с AI-анализом"
         user_text = self._build_owner_text(name, phone, email, comment, ai_result)
         user_html = self._build_owner_html(name, phone, email, comment, ai_result)
     
@@ -68,7 +68,6 @@ class EmailService:
         html_body: Optional[str] = None,
     ) -> bool:
         self._save_to_outbox(to_email, subject, text_body, html_body)
-        logger.info("DEBUG_EMAIL_SUBJECT to=%s subject=%s", to_email, subject)
 
         if not self._is_configured():
             logger.warning("Brevo API is not configured. Email was saved to outbox only.")
@@ -193,31 +192,6 @@ class EmailService:
                 <p style="margin:0 0 8px;"><strong>Приоритет:</strong> {safe_priority}</p>
                 <p style="margin:0;line-height:1.6;"><strong>Вариант ответа:</strong> {safe_reply}</p>
               </div>
-            </div>
-          </div>
-        </body>
-        </html>
-        """
-
-        return f"""
-        <!doctype html>
-        <html lang="ru">
-        <body style="margin:0;padding:0;background:#f4f6f8;font-family:Arial,sans-serif;color:#1f2937;">
-          <div style="max-width:560px;margin:0 auto;padding:24px;">
-            <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:16px;padding:24px;">
-              <p style="margin:0 0 8px;font-size:13px;color:#6b7280;">Developer Landing API</p>
-              <h1 style="margin:0 0 16px;font-size:24px;line-height:1.25;color:#111827;">
-                Заявка получена
-              </h1>
-              <p style="margin:0 0 12px;line-height:1.6;">
-                Здравствуйте, {safe_name}!
-              </p>
-              <p style="margin:0 0 12px;line-height:1.6;">
-                Ваша заявка успешно отправлена и принята в обработку.
-              </p>
-              <p style="margin:0;line-height:1.6;color:#6b7280;">
-                Это автоматическое письмо от тестового backend API.
-              </p>
             </div>
           </div>
         </body>
