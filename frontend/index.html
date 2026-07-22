@@ -8,30 +8,30 @@
 </head>
 <body>
   <main class="page">
-    <section class="hero">
-      <div class="hero__text">
-        <p class="eyebrow">FastAPI · OpenRouter · SMTP · JSON storage</p>
+    <header class="header">
+      <div>
+        <p class="label">FastAPI · OpenRouter · SMTP</p>
         <h1>Backend API для лендинга разработчика</h1>
-        <p class="lead">
-          Тестовый backend-сервис: форма обратной связи, валидация, AI-анализ комментария,
-          email-уведомления, rate limiting, логи и метрики.
+        <p class="description">
+          Тестовый backend-сервис с формой обратной связи, AI-анализом комментария,
+          email-уведомлениями, rate limiting, логированием и метриками.
         </p>
-
-        <div class="hero__actions">
-          <a class="button button--primary" href="/docs" target="_blank">Swagger</a>
-          <a class="button button--secondary" href="/api/health" target="_blank">Health check</a>
-          <a class="button button--secondary" href="/api/metrics" target="_blank">Метрики</a>
-        </div>
       </div>
 
-      <aside class="status-card">
-        <span class="status-dot"></span>
+      <div class="status">
+        <span class="status__dot" id="statusDot"></span>
         <p>Статус API</p>
         <strong id="healthStatus">проверка...</strong>
-      </aside>
-    </section>
+      </div>
+    </header>
 
-    <section class="process">
+    <nav class="links">
+      <a href="/docs" target="_blank">Swagger</a>
+      <a href="/api/health" target="_blank">Health check</a>
+      <a href="/api/metrics" target="_blank">Метрики</a>
+    </nav>
+
+    <section class="steps">
       <article>
         <span>01</span>
         <h2>Запрос</h2>
@@ -47,55 +47,52 @@
       <article>
         <span>03</span>
         <h2>AI-анализ</h2>
-        <p>OpenRouter классифицирует обращение и предлагает вариант ответа.</p>
+        <p>OpenRouter определяет категорию, тональность и приоритет обращения.</p>
       </article>
 
       <article>
         <span>04</span>
         <h2>Email</h2>
-        <p>SMTP отправляет письмо владельцу и копию пользователю.</p>
+        <p>SMTP формирует письмо владельцу сайта и копию пользователю.</p>
       </article>
     </section>
 
-    <section class="content-grid">
-      <article class="panel">
+    <section class="grid">
+      <article class="card">
         <h2>Что реализовано</h2>
 
-        <div class="feature-list">
-          <div>
-            <h3>REST API</h3>
-            <p>Контактная форма, health check и metrics endpoint.</p>
-          </div>
-
-          <div>
-            <h3>AI fallback</h3>
-            <p>Если AI недоступен, сервис продолжает обработку заявки.</p>
-          </div>
-
-          <div>
-            <h3>Защита от спама</h3>
-            <p>Rate limiting по IP через файловое хранение.</p>
-          </div>
-
-          <div>
-            <h3>Логи и статистика</h3>
-            <p>Запросы, ошибки и метрики сохраняются локально.</p>
-          </div>
-        </div>
+        <ul class="features">
+          <li>
+            <strong>REST API</strong>
+            <span>Контактная форма, health check и metrics endpoint.</span>
+          </li>
+          <li>
+            <strong>AI fallback</strong>
+            <span>Если AI недоступен, сервис продолжает обработку заявки.</span>
+          </li>
+          <li>
+            <strong>Rate limiting</strong>
+            <span>Защита от спама по IP через файловое хранение.</span>
+          </li>
+          <li>
+            <strong>Логи и метрики</strong>
+            <span>Запросы, ошибки и статистика сохраняются локально.</span>
+          </li>
+        </ul>
       </article>
 
-      <article class="panel">
-        <div class="panel__header">
+      <article class="card">
+        <div class="card__top">
           <div>
             <h2>Тестовая заявка</h2>
             <p>Отправьте форму и проверьте полный backend-flow.</p>
           </div>
-          <button class="button button--small" type="button" id="fillExample">
+          <button type="button" class="secondary-button" id="fillExample">
             Заполнить пример
           </button>
         </div>
 
-        <form id="contactForm" class="form">
+        <form class="form" id="contactForm">
           <label>
             Имя
             <input name="name" type="text" placeholder="Иван Шевченко" required minlength="2" />
@@ -116,20 +113,20 @@
             <textarea name="comment" required minlength="5" placeholder="Здравствуйте! Хочу обсудить разработку backend API для лендинга с AI-анализом заявки и email-уведомлениями."></textarea>
           </label>
 
-          <button class="button button--primary button--full" type="submit">
+          <button type="submit" class="primary-button">
             Отправить заявку
           </button>
         </form>
       </article>
     </section>
 
-    <section class="response-panel">
-      <div class="response-panel__header">
+    <section class="card response-card">
+      <div class="card__top">
         <div>
           <h2>Ответ API</h2>
           <p>Здесь появится результат от <code>POST /api/contact</code>.</p>
         </div>
-        <span id="responseStatus" class="response-status">ожидание</span>
+        <span class="badge" id="responseStatus">ожидание</span>
       </div>
 
       <pre id="responseBox">Запрос ещё не отправлялся.</pre>
