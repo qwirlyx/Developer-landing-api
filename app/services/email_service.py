@@ -1,10 +1,10 @@
-import asyncio
 import html
 import json
 import os
-import smtplib
 from datetime import datetime
-from email.message import EmailMessage
+from typing import Optional
+
+import httpx
 
 from app.config import get_settings
 from app.core.logger import logger
@@ -14,6 +14,7 @@ class EmailService:
     def __init__(self) -> None:
         self.settings = get_settings()
         self.outbox_file = os.path.join("app", "storage", "email_outbox.json")
+        self.brevo_api_url = "https://api.brevo.com/v3/smtp/email"
 
     async def send_contact_emails(
         self,
@@ -31,20 +32,18 @@ class EmailService:
         user_text = self._build_user_text(name)
         user_html = self._build_user_html(name)
 
-        owner_status = await asyncio.to_thread(
-            self._send_email,
-            self.settings.owner_email,
-            owner_subject,
-            owner_text,
-            owner_html,
+        owner_status = await self._send_email(
+            to_email=self.settings.owner_email,
+            subject=owner_subject,
+            text_body=owner_text,
+            html_body=owner_html,
         )
 
-        user_status = await asyncio.to_thread(
-            self._send_email,
-            email,
-            user_subject,
-            user_text,
-            user_html,
+        user_status = await self._send_email(
+            to_email=email,
+            subject=user_subject,
+            text_body=user_text,
+            html_body=user_html,
         )
 
         return {
@@ -55,57 +54,73 @@ class EmailService:
     def _is_configured(self) -> bool:
         return all(
             [
-                self.settings.smtp_host,
-                self.settings.smtp_username,
-                self.settings.smtp_password,
+                self.settings.brevo_api_key,
                 self.settings.smtp_from_email,
                 self.settings.owner_email,
             ]
         )
 
-    def _send_email(
+    async def _send_email(
         self,
         to_email: str,
         subject: str,
         text_body: str,
-        html_body: str | None = None,
+        html_body: Optional[str] = None,
     ) -> bool:
         self._save_to_outbox(to_email, subject, text_body, html_body)
 
         if not self._is_configured():
-            logger.warning("SMTP is not configured. Email was saved to outbox only.")
+            logger.warning("Brevo API is not configured. Email was saved to outbox only.")
             return False
 
+        payload = {
+            "sender": {
+                "name": self.settings.smtp_from_name or "Developer Landing",
+                "email": self.settings.smtp_from_email,
+            },
+            "to": [
+                {
+                    "email": to_email,
+                }
+            ],
+            "subject": subject,
+            "textContent": text_body,
+        }
+
+        if html_body:
+            payload["htmlContent"] = html_body
+
+        headers = {
+            "accept": "application/json",
+            "api-key": self.settings.brevo_api_key,
+            "content-type": "application/json",
+        }
+
         try:
-            message = EmailMessage()
-            message["Subject"] = subject
-            message["From"] = self.settings.smtp_from_email
-            message["To"] = to_email
-
-            message.set_content(text_body)
-
-            if html_body:
-                message.add_alternative(html_body, subtype="html")
-
-            with smtplib.SMTP(
-                self.settings.smtp_host,
-                self.settings.smtp_port,
-                timeout=20,
-            ) as server:
-                if self.settings.smtp_use_tls:
-                    server.starttls()
-
-                server.login(
-                    self.settings.smtp_username,
-                    self.settings.smtp_password,
+            async with httpx.AsyncClient(timeout=20) as client:
+                response = await client.post(
+                    self.brevo_api_url,
+                    headers=headers,
+                    json=payload,
                 )
-                server.send_message(message)
 
-            logger.info("Email sent successfully to %s", to_email)
+            if response.status_code >= 400:
+                logger.error(
+                    "Brevo API error %s: %s",
+                    response.status_code,
+                    response.text,
+                )
+                return False
+
+            logger.info("Email sent successfully via Brevo API to %s", to_email)
             return True
 
         except Exception as error:
-            logger.exception("Email sending failed to %s: %s", to_email, str(error))
+            logger.exception(
+                "Brevo API email sending failed to %s: %s",
+                to_email,
+                str(error),
+            )
             return False
 
     def _build_owner_text(
@@ -240,7 +255,7 @@ class EmailService:
         to_email: str,
         subject: str,
         text_body: str,
-        html_body: str | None = None,
+        html_body: Optional[str] = None,
     ) -> None:
         os.makedirs(os.path.dirname(self.outbox_file), exist_ok=True)
 
