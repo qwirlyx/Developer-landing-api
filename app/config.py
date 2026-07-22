@@ -19,6 +19,8 @@ class Settings(BaseSettings):
     smtp_from_name: str = "Developer Landing"
     smtp_use_tls: bool = True
 
+    brevo_api_key: str = ""
+
     openrouter_api_key: str = ""
     openrouter_model: str = ""
 
