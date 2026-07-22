@@ -1,0 +1,12 @@
+.env
+.venv
+venv
+__pycache__
+*.pyc
+.git
+.gitignore
+
+app/storage/*.log
+app/storage/metrics.json
+app/storage/rate_limit.json
+app/storage/email_outbox.json
