@@ -27,25 +27,25 @@ class EmailService:
         owner_subject = "Новая заявка с лендинга"
         owner_text = self._build_owner_text(name, phone, email, comment, ai_result)
         owner_html = self._build_owner_html(name, phone, email, comment, ai_result)
-
+    
         user_subject = "Копия заявки с AI-анализом"
         user_text = self._build_owner_text(name, phone, email, comment, ai_result)
         user_html = self._build_owner_html(name, phone, email, comment, ai_result)
-
+    
         owner_status = await self._send_email(
             to_email=self.settings.owner_email,
             subject=owner_subject,
             text_body=owner_text,
             html_body=owner_html,
         )
-
+    
         user_status = await self._send_email(
             to_email=email,
             subject=user_subject,
             text_body=user_text,
             html_body=user_html,
         )
-
+    
         return {
             "owner_email_sent": owner_status,
             "user_email_sent": user_status,
